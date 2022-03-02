@@ -1,0 +1,102 @@
+.login {
+  height: 80vh;
+  width: 60vw;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  background-color: white;
+  position: absolute;
+  display: flex;
+  border-radius: 10px;
+  overflow: hidden;
+  
+}
+.login > div {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+}
+.text-field {
+  background: #f7495b;
+  
+}
+
+.input{
+ text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 186px;
+  width: 250px;
+  padding: 60px;
+  margin-top: -17px;
+}
+.input-field{
+font-weight: 600;
+opacity: 0.8;
+}.input-field>h1{
+  font: caption;
+  font-weight: 900;
+  font-size: 35px;
+  opacity: 0.9;
+  margin-top: 13px;
+}
+.input>input{
+  height: 40px;
+    padding-left: 18px;
+    border-radius: 27px;
+    border: none;
+    background: #e5d6d6;
+    font-size: 1rem;
+}
+.input>button{
+  background-color: #eb1e34;
+    border: none;
+    height: 32px;
+    width: 115px;
+    
+    align-self: center;
+    border-radius: 20px;
+    color: white;
+    font-weight: 600;
+    font-size: 15px;
+}
+.input>h6{
+  letter-spacing: 2px;
+  font: initial;
+  font-size: 14px;
+}
+.input-field>img{
+ 
+  width: 82px;
+  margin-top: 20px;
+}
+.text-content{
+  color: white;
+  margin-top: 35%;
+  text-align: center;
+  font: initial;
+  font-size: 33px;
+  font-weight: 900;
+}
+
+.text-content>p:nth-child(2){
+font-size: medium;
+}
+.text-content>p{
+  margin-top: 10px;
+}
+.text-content>button{
+  border: none;
+  padding: 12px;
+  width: 128px;
+  margin-top: 21px;
+  border-radius: 19px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
