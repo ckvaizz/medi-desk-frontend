@@ -1,0 +1,154 @@
+.signup {
+    height: 80vh;
+    width: 60vw;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  
+    background-color: white;
+    position: absolute;
+   
+    border-radius: 10px;
+    overflow: hidden;
+    
+  }
+  .signup > div {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* padding: 30px; */
+  }
+  .text-field-signup{
+    background: #f7495b;
+    animation: slide-signup 2s both;
+    position: absolute;
+    transition: 2s ease-in;
+   
+  }
+  @keyframes slide-signup {
+    0%{
+      position: absolute;
+      right: 0;
+      opacity: 0;
+    }
+    50%{
+      position: absolute;
+      right: 50%;
+      opacity: .5;
+    }
+    100%{
+      
+      left: 0;
+      opacity: 1;
+    }
+  }
+
+
+  .input-field-signup{
+    font-weight: 600;
+
+    animation: slide2-signup 2s both;
+    position: absolute;
+      right: 0;
+  }
+
+  @keyframes slide2-signup {
+    from {
+      transform : scale(1);
+      opacity   : 0;
+  }
+  50% {
+      transform : scale(0.75);
+      opacity   : 0.25;
+  }
+  to {
+      transform : scale(1);
+      opacity   : 1;
+  }
+  }
+
+  .input-field-signup>h1{
+    font: caption;
+    font-weight: 900;
+    font-size: 35px;
+    opacity: 0.9;
+    margin-top: 30px;
+  }
+  .input-field-signup>.input{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    width: 250px;
+    padding: 40px;
+  }
+  .input-field-signup>input{
+    height: 40px;
+    padding-left: 18px;
+    border-radius: 27px;
+    border: none;
+    background: #e5d6d6;
+    font-size: 1rem;
+  }
+  .input-field-signup>button{
+    background-color: #eb1e34;
+    border: none;
+    height: 32px;
+    width: 115px;
+    
+    align-self: center;
+    border-radius: 20px;
+    color: white;
+    font-weight: 600;
+    font-size: 15px;
+  }
+
+  .otp-viewer{
+    
+    height: 240px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+   align-items: center;
+   margin-top: 46px;
+   transition: all .6s ease;
+  }
+  .otp-viewer>h5{
+    text-align: center;
+    font-size: 25px;
+    margin-top: -23px;
+    margin: 13px;
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-color: #f74a5c;
+  }
+  .otp-viewer>input{
+    margin: 24px;
+    height: 25px;
+    border: none;
+    padding: 5px;
+    border-radius: 20px;
+    padding-left: 16px;
+    background: #ebe0e0;
+  }
+  .otp-viewer:hover{
+    
+   box-shadow:0 0px 20px -5px rgb(163 157 157) inset;
+    border-radius: 10px;
+  }
+  .otp-viewer>button{
+    margin: 17px;
+    height: 40px;
+    width: 200px;
+    border: none;
+    padding: 5px;
+    border-radius: 20px;
+    background: #f74a5c;
+    color: white;
+    font-size: 17px;
+    letter-spacing: 2px;
+    font-weight: bolder;
+  }

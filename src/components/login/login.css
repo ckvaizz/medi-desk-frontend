@@ -7,7 +7,7 @@
 
   background-color: white;
   position: absolute;
-  display: flex;
+ 
   border-radius: 10px;
   overflow: hidden;
   
@@ -18,12 +18,33 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 30px;
+  /* padding: 30px; */
 }
 .text-field {
   background: #f7495b;
-  
+  animation: slide 2s both;
+  position: absolute;
+  right: 0;
 }
+
+@keyframes slide {
+  0%{
+    position: absolute;
+    left: 0;
+    opacity: 0;
+  }
+  50%{
+    position: absolute;
+    left: 50%;
+    opacity: .5;
+  }
+  100%{
+    
+    
+    opacity: 1;
+  }
+}
+
 
 .input{
  text-align: center;
@@ -37,13 +58,32 @@
 }
 .input-field{
 font-weight: 600;
-opacity: 0.8;
-}.input-field>h1{
+
+animation: slide2 2s both;
+position: absolute;
+left: 0;
+}
+
+@keyframes slide2 {
+  from {
+    transform : scale(1);
+    opacity   : 0;
+}
+50% {
+    transform : scale(0.75);
+    opacity   : 0.25;
+}
+to {
+    transform : scale(1);
+    opacity   : 1;
+}
+}
+.input-field>h1{
   font: caption;
   font-weight: 900;
   font-size: 35px;
   opacity: 0.9;
-  margin-top: 13px;
+  margin-top: 33px;
 }
 .input>input{
   height: 40px;
