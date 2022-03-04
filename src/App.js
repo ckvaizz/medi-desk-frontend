@@ -56,7 +56,7 @@ function App() {
           path='/home'
           element={<Userhome/>}
           />
-          <Route path="/medi-list" element={<MedicineList/>} />
+          <Route path="/medi-list/:medi" element={<MedicineList/>} />
         </Routes>
       
     </div>

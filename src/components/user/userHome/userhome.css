@@ -65,8 +65,9 @@
   overflow-y: scroll;
   margin-top: 10px;
 }
-.search-area > div > p {
+.search-area > div > button {
     width: 95%;
+    border: none;
     border-bottom: 2px solid;
     margin: 5px;
     padding: 2px;
@@ -74,6 +75,6 @@
     flex-wrap: wrap;
     overflow-wrap: anywhere;
 }
-.search-area > div > p:hover{
+.search-area > div > button:hover{
     background-color: rgba(128, 128, 128, 0.664);
 }
