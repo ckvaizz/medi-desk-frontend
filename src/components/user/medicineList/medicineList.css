@@ -1,0 +1,23 @@
+.mediList-main{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-color: #234570;
+    overflow: hidden;
+}
+.medi-cards{
+    height: 490px;
+    width: fit-content;
+    position: absolute;
+    top: 100px;
+   
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    overflow-y: scroll;
+    padding: 0 40px;
+}
+
+.medi-cards::-webkit-scrollbar {
+    display: none;
+  }

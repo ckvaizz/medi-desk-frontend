@@ -1,0 +1,30 @@
+.NavBar-main{
+
+    position: fixed;
+    top: 0;
+
+   transition: all .7s ease-in;
+    width: 95%;
+    height: 100px;
+    z-index: 999;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 33px;
+    align-items: center;
+}
+.NavBar-main>img{
+    width: 53px;
+    height: 53px;
+    border-radius: 50%;
+    margin-right: 40px;
+}
+.NavBar-main:hover{
+    box-shadow: 0px 3px 20px -2px rgb(0 0 0 / 70%);
+}
+.NavBar-main>h4{
+    font-size: 30px;
+    color: #e95968;
+    margin-left: 18px;
+    text-transform: uppercase;
+    font-family: serif;
+}

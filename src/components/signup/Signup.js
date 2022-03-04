@@ -93,21 +93,25 @@ export default function Signup({ setLoginOrSignup }) {
               type="text"
               placeholder="Name"
               onChange={(e) => setName(e.target.value)}
+              value={name}
             />
             <input
               type="text"
               placeholder="Mobile"
               onChange={(e) => setMobile(e.target.value)}
+              value={mobile}
             />
             <input
               type="password"
               placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
+              value={password}
             />
             <input
               type="password"
               placeholder="Re-password"
               onChange={(e) => setRepassword(e.target.value)}
+              value={rePassword}
             />
             <FormControlLabel
               control={
@@ -121,11 +125,13 @@ export default function Signup({ setLoginOrSignup }) {
                   type="text"
                   placeholder="Shop name"
                   onChange={(e) => setShop({ ...shop, name: e.target.value })}
+                  value={shop.name}
                 />
                 <input
                   type="email"
                   placeholder="Shop email"
                   onChange={(e) => setShop({ ...shop, email: e.target.value })}
+                  value={shop.email}
                 />
                 <input
                   type="text"
@@ -133,6 +139,7 @@ export default function Signup({ setLoginOrSignup }) {
                   onChange={(e) =>
                     setShop({ ...shop, lisenceNO: e.target.value })
                   }
+                  value={shop.lisenceNO}
                 />{" "}
               </>
             )}
@@ -153,6 +160,7 @@ export default function Signup({ setLoginOrSignup }) {
               type="text"
               onChange={(e) => setOtp(e.target.value)}
               placeholder="Enter otp here.."
+              value={otp}
             />
             <button onClick={otpHandler}>
               {loading ? (

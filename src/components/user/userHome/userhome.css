@@ -1,0 +1,79 @@
+.userHome-main {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  background-color: #234570;
+  
+}
+.userHome-main > img {
+  position: absolute;
+  top: 50%;
+  left: 50px;
+  transform: translate(0%, -50%);
+  width: 500px;
+  height: 400px;
+  /* border: 1px solid black; */
+
+  padding: 19px;
+}
+.content-area {
+  position: absolute;
+  width: 500px;
+  height: 400px;
+  top: 55%;
+  right: 50px;
+  transform: translate(0%, -50%);
+  /* border: 1px solid black; */
+}
+.content-area > h4 {
+  margin-top: 70px;
+  font-size: 37px;
+  font-weight: 600;
+  font-family: serif;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  color: white;
+}
+.content-area > h4 > span:nth-child(2) {
+  color: #e76370;
+  letter-spacing: 3px;
+}
+
+.search-area {
+  height: 200px;
+  width: 400px;
+  /* border: 1px solid black; */
+  margin: auto;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.search-area > input {
+  height: 37px;
+  width: 300px;
+  margin-top: 15px;
+  text-align: center;
+  border-radius: 20px;
+  border: none;
+  font-size: 18px;
+}
+.search-area > div {
+  width: 300px;
+  background: white;
+  height: 200px;
+  overflow-y: scroll;
+  margin-top: 10px;
+}
+.search-area > div > p {
+    width: 95%;
+    border-bottom: 2px solid;
+    margin: 5px;
+    padding: 2px;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-wrap: anywhere;
+}
+.search-area > div > p:hover{
+    background-color: rgba(128, 128, 128, 0.664);
+}
