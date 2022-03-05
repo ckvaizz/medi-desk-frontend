@@ -12,6 +12,8 @@ import {
 import Userhome from "./components/user/userHome/Userhome";
 import MedicineList from "./components/user/medicineList/MedicineList";
 import NavBar from "./components/navBar/NavBar";
+import SkHome from "./components/shopkeeper/Home/SkHome";
+
 
 function App() {
   const [loginOrSignup, setLoginOrSignup] = useState("login");
@@ -57,6 +59,7 @@ function App() {
           element={<Userhome/>}
           />
           <Route path="/medi-list/:medi" element={<MedicineList/>} />
+            <Route path="/sk/home" element={<SkHome/>}/>
         </Routes>
       
     </div>

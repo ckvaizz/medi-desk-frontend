@@ -9,11 +9,12 @@ import Typography from "@mui/material/Typography";
 import { useParams } from "react-router-dom";
 import Axios from "../../../constants/Axios";
 import { infoToast } from "../../../constants/toast";
+import Skeleton from '@mui/material/Skeleton';
 
 export default function MedicineList() {
   const { medi } = useParams();
   const [data, setData] = React.useState([]);
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(true); 
 
   React.useEffect(() => {
     setLoading(true);
@@ -48,15 +49,42 @@ export default function MedicineList() {
                 stock={item.stock}
                 item={item}
                 key={key}
+                status={true}
               />
             );
           })}
+          {
+            loading && Array.from(new Array(10)).map(item=>{
+              return(
+
+                <>
+             <Box sx={{ pt: 0.5 ,margin:2 }}>
+             <Skeleton variant="rectangular" width={210} height={118} />
+              <Skeleton />
+              <Skeleton width="60%" />
+            </Box>
+            </>
+          )
+        })
+          }
+          {
+            data.length == 0 && <CardDesign
+            mediName={""}
+            companyName={"No items found"}
+            shopName={""}
+            dose={[]}
+            price={""}
+            stock={""}
+            item={""}
+            status={false}
+          />
+          }
       </div>
     </div>
   );
 }
 
-function CardDesign({ shopName, mediName, companyName, stock, dose, price }) {
+function CardDesign({ shopName, mediName, companyName, stock, dose, price ,status}) {
   const card = (
     <React.Fragment>
       <CardContent>
@@ -76,7 +104,7 @@ function CardDesign({ shopName, mediName, companyName, stock, dose, price }) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Book time</Button>
+       {status && <Button size="small">Book time</Button>}
       </CardActions>
     </React.Fragment>
   );

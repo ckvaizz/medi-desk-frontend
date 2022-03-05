@@ -1,6 +1,6 @@
 import "./userhome.css";
 import Svg from "../../../images/shop.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Axios from "../../../constants/Axios";
 import LinearProgress from "@mui/material/LinearProgress";
 import CircularProgress from '@mui/material/CircularProgress';
@@ -12,6 +12,8 @@ export default function Userhome() {
   const [suggestions, setSuggestions] = useState(JSON.parse(localStorage.getItem("recent"))||[]);
   const [loading, setLoading] = useState(false);
   const navigate =useNavigate();
+
+
 
   const onFocusHandler = () => {
     setSuggestion(true);

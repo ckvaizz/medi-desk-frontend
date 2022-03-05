@@ -22,7 +22,12 @@ export default function Login({ setLoginOrSignup ,setLoginUser }) {
     let user = JSON.parse(localStorage.getItem("user"));
     if (user){
       setLoginUser(user.user)
-      navigate('/home')
+      if(user.user.role === 3)
+        navigate('/home')
+      else if(user.user.role==2)
+       navigate('/sk/home')
+      else if(user.user.role === 1)
+        navigate('/admin/home')
     }else navigate('/') 
   }, []);
   
