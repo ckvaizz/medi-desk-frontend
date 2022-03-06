@@ -27,7 +27,7 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 export default function SkHome() {
   const [data, setData] = React.useState([]);
@@ -57,37 +57,33 @@ export default function SkHome() {
       });
   }, []);
 
- const deleteHandler =_id=>{
-  Swal.fire({
-    title: 'Are you sure?',
-    text: "You won't be able to revert this!",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, delete it!',
-    preConfirm:()=>{
-      return Axios.post('/medi/delete',{_id}).then(res=>{
-        if(!res.data.status) throw new Error()
-        return
-      }).catch(e=>{
-        Swal.showValidationMessage(
-          `Request failed`
-        )
-      })
-    },
-    allowOutsideClick: () => !Swal.isLoading()
-  }).then((result) => {
-    if (result.isConfirmed) {
-      Swal.fire(
-        'Deleted!',
-        'medicine',
-        'success'
-      )
-      setData(data.filter(e=> e._id !== _id))
-    }
-  })
- }
+  const deleteHandler = (_id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+      preConfirm: () => {
+        return Axios.post("/medi/delete", { _id })
+          .then((res) => {
+            if (!res.data.status) throw new Error();
+            return;
+          })
+          .catch((e) => {
+            Swal.showValidationMessage(`Request failed`);
+          });
+      },
+      allowOutsideClick: () => !Swal.isLoading(),
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire("Deleted!", "medicine", "success");
+        setData(data.filter((e) => e._id !== _id));
+      }
+    });
+  };
 
   return (
     <div className="sk-home-main">
@@ -140,7 +136,10 @@ export default function SkHome() {
                       >
                         <EditIcon />
                       </button>{" "}
-                      <button className="delete-btn" onClick={()=> deleteHandler(medi._id)}>
+                      <button
+                        className="delete-btn"
+                        onClick={() => deleteHandler(medi._id)}
+                      >
                         <DeleteForeverIcon />
                       </button>
                     </TableCell>
@@ -167,9 +166,11 @@ export default function SkHome() {
           </Table>
         </TableContainer>
       </div>
-      <div className="addMedi-btn" onClick={()=>setOpenAdd(true)}><AddCircleIcon/></div>
+      <div className="addMedi-btn" onClick={() => setOpenAdd(true)}>
+        <AddCircleIcon />
+      </div>
       <EditScreenDialog currentData={currentData} />
-      <AddScreenDialog setOpenAdd={setOpenAdd} openAdd={openAdd}/>
+      <AddScreenDialog setOpenAdd={setOpenAdd} openAdd={openAdd} />
     </div>
   );
 }
@@ -202,7 +203,7 @@ function EditScreenDialog({ currentData }) {
     setLoading(true);
     Axios.post("/medi/edit", edited)
       .then((res) => {
-        handleClose()
+        handleClose();
         setLoading(false);
         if (res.data.status) {
           successToast("edited successfully", 4000, () =>
@@ -213,7 +214,7 @@ function EditScreenDialog({ currentData }) {
         }
       })
       .catch((e) => {
-        handleClose()
+        handleClose();
         setLoading(false);
         errorToast("something wrong..");
       });
@@ -386,25 +387,25 @@ function EditScreenDialog({ currentData }) {
   );
 }
 
-function AddScreenDialog({setOpenAdd,openAdd}) {
+function AddScreenDialog({ setOpenAdd, openAdd }) {
   const handleClose = () => {
     setOpenAdd(false);
   };
-  const [edited, setEdited] = React.useState({name:'',
-    companyName: '',
-    dose: '',
-    stock: '',
-    price: ''});
-  
-  const [loading, setLoading] = React.useState(false);
+  const [edited, setEdited] = React.useState({
+    name: "",
+    companyName: "",
+    dose: "",
+    stock: "",
+    price: "",
+  });
 
-  
+  const [loading, setLoading] = React.useState(false);
 
   const addHandler = () => {
     setLoading(true);
     Axios.post("/medi/add", edited)
       .then((res) => {
-        handleClose()
+        handleClose();
         setLoading(false);
         if (res.data.status) {
           successToast("Added successfully", 4000, () =>
@@ -415,7 +416,7 @@ function AddScreenDialog({setOpenAdd,openAdd}) {
         }
       })
       .catch((e) => {
-        handleClose()
+        handleClose();
         setLoading(false);
         errorToast("something wrong..");
       });
@@ -464,7 +465,6 @@ function AddScreenDialog({setOpenAdd,openAdd}) {
               <TextField
                 id="outlined-basic"
                 label="Name"
-                
                 variant="outlined"
                 onChange={(e) => setEdited({ ...edited, name: e.target.value })}
               />
@@ -480,7 +480,6 @@ function AddScreenDialog({setOpenAdd,openAdd}) {
               <TextField
                 id="outlined-basic"
                 label="Company name"
-                
                 variant="outlined"
                 onChange={(e) =>
                   setEdited({ ...edited, companyName: e.target.value })
@@ -508,7 +507,6 @@ function AddScreenDialog({setOpenAdd,openAdd}) {
               <TextField
                 id="outlined-basic"
                 label="Stock"
-                
                 variant="outlined"
                 onChange={(e) =>
                   setEdited({ ...edited, stock: e.target.value })
@@ -526,7 +524,6 @@ function AddScreenDialog({setOpenAdd,openAdd}) {
               <TextField
                 id="outlined-basic"
                 label="Price"
-                
                 variant="outlined"
                 onChange={(e) =>
                   setEdited({ ...edited, price: e.target.value })
@@ -554,7 +551,6 @@ function AddScreenDialog({setOpenAdd,openAdd}) {
               <TextField
                 id="outlined-basic"
                 label="Dose"
-                
                 variant="outlined"
                 onChange={(e) =>
                   setEdited({ ...edited, dose: e.target.value.split(",") })
