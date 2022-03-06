@@ -8,7 +8,7 @@ import {  useLocation, useNavigate } from 'react-router-dom';
 export default function NavBar(){
     const location = useLocation();
     const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
-   
+   const [showDropdown,setDropdown]=useState(false)
    
     const navigate=useNavigate();
     useEffect(() => {
@@ -36,13 +36,26 @@ export default function NavBar(){
                 navigate('/')
             }
         }
-        console.log(location.pathname.split('/'))
+       
     }
       }, [location]);
+
+      const logout=()=>{
+        localStorage.removeItem("user");
+            window.location.reload()    
+        
+      }
     return(
         <div className='NavBar-main'>
             <h4 onClick={()=>navigate('/home')}>"Hai {user?.user?.name}"</h4>
-            <img src={Avatar} alt="" />
+            <img src={Avatar} alt="" onClick={()=>setDropdown(!showDropdown)} />
+           {showDropdown && <div className='nav-drop-down' onMouseLeave={()=>setDropdown(false)} >
+                {user?.user?.role !==1 &&<>
+                <div>TimeSlot</div>
+                <div>Profile</div>
+                </>} 
+                <div onClick={logout}>Logout</div>
+            </div>}
         </div>
     )
 }

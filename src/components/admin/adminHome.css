@@ -1,0 +1,46 @@
+.admin-home-main{
+    position: relative;
+    background-color: #234570;
+    height: 100%;
+}
+.admin-table{
+    position: absolute;
+    height: 70vh;
+    width: 90%;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    
+    padding: 10px;
+    overflow-y: scroll;
+
+}
+.admin-table::-webkit-scrollbar{
+    display: none;
+}
+.admin-home-main>span{
+    background-color: #d85669;
+    padding: 9px;
+    position: fixed;
+    top: 16%;
+    left: 70px;
+    border-radius: 20px;
+    color: white;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.approve-btn,.user-delete-btn{
+    padding: 4px;
+    border: none;
+    border-radius: 10px;
+    
+}
+.approve-btn{
+    background-color: yellowgreen;
+}
+.user-delete-btn{
+    background-color: red;
+    color: white;
+}

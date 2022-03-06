@@ -28,3 +28,33 @@
     text-transform: uppercase;
     font-family: serif;
 }
+.nav-drop-down{
+    position: absolute;
+    right: 53px;
+    background-color: aliceblue;
+    padding: 10px;
+    top: 86px;
+    animation: dropDown .5s ease;
+    border: 1px solid;
+}
+.nav-drop-down>div{
+    margin: 5px;
+   padding: 5px;
+   transition: all .8s ease;
+}
+.nav-drop-down>div:hover{
+    background-color: #234570;
+    color: white;
+    cursor: pointer;
+}
+
+@keyframes dropDown {
+    from{
+        height: 0px;
+        opacity: 0;
+    }
+    to{
+        height: 100%;
+        opacity: 1;
+    }
+}

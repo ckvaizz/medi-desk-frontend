@@ -13,7 +13,7 @@ import Userhome from "./components/user/userHome/Userhome";
 import MedicineList from "./components/user/medicineList/MedicineList";
 import NavBar from "./components/navBar/NavBar";
 import SkHome from "./components/shopkeeper/Home/SkHome";
-
+import AdminHome from "./components/admin/AdminHome";
 
 function App() {
   const [loginOrSignup, setLoginOrSignup] = useState("login");
@@ -60,6 +60,7 @@ function App() {
           />
           <Route path="/medi-list/:medi" element={<MedicineList/>} />
             <Route path="/sk/home" element={<SkHome/>}/>
+            <Route path='/admin/home' element={<AdminHome />}/>
         </Routes>
       
     </div>
