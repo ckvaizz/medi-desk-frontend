@@ -68,7 +68,7 @@ export default function MedicineList() {
         })
           }
           {
-            data.length == 0 && <CardDesign
+            data.length == 0 && !loading && <CardDesign
             mediName={""}
             companyName={"No items found"}
             shopName={""}
