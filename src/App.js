@@ -15,6 +15,7 @@ import NavBar from "./components/navBar/NavBar";
 import SkHome from "./components/shopkeeper/Home/SkHome";
 import AdminHome from "./components/admin/AdminHome";
 import PageNot from "./components/pageNotFound/PageNot";
+import TimeSlot from "./components/shopkeeper/timeSlot/TimeSlot";
 
 function App() {
   const [loginOrSignup, setLoginOrSignup] = useState("login");
@@ -62,6 +63,7 @@ function App() {
         <Route path="/medi-list/:medi" element={<MedicineList />} />
         <Route path="/sk/home" element={<SkHome />} />
         <Route path="/admin/home" element={<AdminHome />} />
+        <Route path="/sk/slots" element={<TimeSlot/>}/>
           <Route path="*" element={<PageNot/>}/>
       </Routes>
     </div>

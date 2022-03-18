@@ -1,0 +1,29 @@
+.sk-timeslot-main{
+    position: relative;
+    background-color: #234570;
+    height: 100%;
+}
+.sk-timeslot{
+    position: absolute;
+    height: 70vh;
+    width: 90%;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    padding: 10px;
+    overflow-y: scroll;
+}
+.sk-timeslot::-webkit-scrollbar{
+    display: none;
+}
+.sk-timeslot-main>span{
+position: fixed;
+top: 17%;
+left: 70px;
+}
+.sk-timeslot-main>span>input{
+    border: none;
+    height: 25px;
+    border-radius: 20px;
+    padding-left: 10px;
+}
