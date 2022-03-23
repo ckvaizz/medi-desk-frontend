@@ -64,7 +64,7 @@ export default function NavBar() {
   const logout = () => {
     localStorage.removeItem("user");
     navigate('/')
-    // window.location.reload();
+    window.location.reload();
   };
   return (
     <div className="NavBar-main">
