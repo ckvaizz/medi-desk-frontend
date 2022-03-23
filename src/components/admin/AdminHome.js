@@ -32,7 +32,7 @@ export default function AdminHome() {
       })
       .catch((e) => {
         setLoading(false);
-        errorToast("something wrong");
+        // errorToast("something wrong");
       });
   }, [listStatus]);
 

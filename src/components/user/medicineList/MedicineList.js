@@ -46,7 +46,7 @@ export default function MedicineList() {
       })
       .catch((e) => {
         setLoading(false);
-        infoToast("something wrong please try again");
+        // infoToast("something wrong please try again");
       });
   }, []);
 

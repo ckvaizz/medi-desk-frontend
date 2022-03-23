@@ -53,7 +53,7 @@ export default function SkHome() {
       })
       .catch((e) => {
         setLoading(false);
-        errorToast("something wrong");
+        // errorToast("something wrong");
       });
   }, []);
 

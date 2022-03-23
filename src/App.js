@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import Login from "./components/login/Login";
 import Signup from "./components/signup/Signup";
-import { successToast } from "./constants/toast";
 import {
-  BrowserRouter as Router,
+  
   Routes,
   Route,
   useNavigate,

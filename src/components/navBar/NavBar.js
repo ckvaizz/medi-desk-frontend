@@ -63,7 +63,8 @@ export default function NavBar() {
 
   const logout = () => {
     localStorage.removeItem("user");
-    window.location.reload();
+    navigate('/')
+    // window.location.reload();
   };
   return (
     <div className="NavBar-main">
@@ -75,7 +76,7 @@ export default function NavBar() {
             <div onClick={() => navigate("/sk/slots")}>TimeSlot</div>
           )}
 
-          {user?.user?.role !== 1 && (
+          {user?.user?.role == 2 && (
             <>
               <div onClick={()=>setOpen(true)}>Profile</div>
             </>
