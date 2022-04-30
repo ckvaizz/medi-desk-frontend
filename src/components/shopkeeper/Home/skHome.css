@@ -55,15 +55,19 @@
 .addMedi-btn{
     position: fixed;
     z-index: 1111;
-    bottom: 10%;
-    left: 6%;
-    height: 45px;
-    width: 45px;
+    left: 39%;
+    height: 30px;
     background: #c75353;
-    
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 50%;
     color: cornsilk;
+    top: 12%;
+    padding: 5px;
+    border-radius: 20px;
+}
+.adddose-Btn{
+    height: 45px;
+    margin-top: 12px;
+    padding: 3px;
 }

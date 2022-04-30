@@ -21,6 +21,7 @@ export default function Signup({ setLoginOrSignup }) {
     name: "",
     email: "",
     lisenceNO: "",
+    landmark:""
   });
   const [otp, setOtp] = React.useState("");
 
@@ -82,6 +83,7 @@ export default function Signup({ setLoginOrSignup }) {
           <p>GET START </p>
           <p>with</p>
           <p>MEDI-DESK</p>
+          <p className="onlyContent">"Thamarassery Area"</p>
           <button onClick={() => setLoginOrSignup("login")}>Login</button>
         </div>
       </div>
@@ -140,7 +142,16 @@ export default function Signup({ setLoginOrSignup }) {
                     setShop({ ...shop, lisenceNO: e.target.value })
                   }
                   value={shop.lisenceNO}
-                />{" "}
+                />
+                <input
+                  type="text"
+                  placeholder="shop's landmark"
+                  onChange={(e) =>
+                    setShop({ ...shop, landmark: e.target.value })
+                  }
+                  value={shop.landmark}
+                />
+                {" "}
               </>
             )}
             <button onClick={signUpHandler}>

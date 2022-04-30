@@ -94,13 +94,11 @@ export default function AdminHome() {
 
   return (
     <div className="admin-home-main">
-      <span
-        onClick={() =>
-          setStatus(listStatus === "approved" ? "pending" : "approved")
-        }
-      >
-        {listStatus}
+      <span>
+        <button style={{opacity:listStatus ==="approved" && ".5"}} onClick={() => setStatus("approved")}>Approved</button>
+        <button style={{opacity:listStatus ==="pending" && ".5"}}  onClick={() => setStatus("pending")}>Pending</button>
       </span>
+
       <div className="admin-table">
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">

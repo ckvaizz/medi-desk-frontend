@@ -18,9 +18,11 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
+import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
+
+import TextField from "@mui/material/TextField";
 
 import LinearProgress from "@mui/material/LinearProgress";
 
@@ -62,8 +64,8 @@ export default function MedicineList() {
                 companyName={item.companyName}
                 shopName={item.shopName}
                 dose={item.dose}
-                price={item.price}
-                stock={item.stock}
+                shopNumber={item.shopNumber}
+                shopLandmark={item?.shopLandmark}
                 item={item}
                 key={key}
                 status={true}
@@ -90,8 +92,6 @@ export default function MedicineList() {
             companyName={"No items found"}
             shopName={""}
             dose={[]}
-            price={""}
-            stock={""}
             item={""}
             status={false}
           />
@@ -113,9 +113,9 @@ function CardDesign({
   shopName,
   mediName,
   companyName,
-  stock,
+  shopNumber,
   dose,
-  price,
+  shopLandmark,
   status,
   setOpen,
   setCurrentdata,
@@ -124,8 +124,12 @@ function CardDesign({
   const card = (
     <React.Fragment>
       <CardContent>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          {shopName}
+        <Typography sx={{ fontSize: 20 }} color="text.primary" gutterBottom>
+          Shop :- {shopName} <br />
+          {shopNumber}
+        </Typography>
+        <Typography sx={{ fontSize: 13 }} variant="h6" component="div">
+          Landmark :- {shopLandmark}
         </Typography>
         <Typography variant="h5" component="div">
           {mediName}
@@ -134,9 +138,15 @@ function CardDesign({
           {companyName}
         </Typography>
         <Typography variant="body2">
-          {dose.map((i) => `${i},`)}
+          {dose.length !== 0 &&
+            dose?.map((i) => {
+              return (
+                <>
+                  Dose - {i.dose} ,Stock - {i.stock} ,Price - {i.price} ₹<br />
+                </>
+              );
+            })}
           <br />
-          {`stock - ${stock} , price - ${price}`}
         </Typography>
       </CardContent>
       <CardActions>
@@ -148,6 +158,7 @@ function CardDesign({
                 return infoToast("Time over ...");
               }
               setCurrentdata({
+                _id: item._id,
                 mediName,
                 companyName,
                 dose,
@@ -171,13 +182,17 @@ function CardDesign({
 }
 
 function MaxWidthDialog({ open, setOpen, currentData, userName }) {
-  const [dose, setDose] = React.useState("");
+  const [dose, setDose] = React.useState({
+    dose: "",
+    quandity: "",
+  });
   const [time, setTime] = React.useState("");
   const [slotStatus, setSlotStatus] = React.useState({});
   const [arr, _] = React.useState([9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8]);
   const [currentTime, q] = React.useState(new Date().getHours());
   const [loading, setLoading] = React.useState(false);
-
+  const [bal, setBal] = React.useState("");
+  const [Error, setError] = React.useState(false);
   React.useEffect(() => {
     setLoading(true);
     Axios.post("/medi/get-slot", { shopId: currentData.shopId })
@@ -201,6 +216,13 @@ function MaxWidthDialog({ open, setOpen, currentData, userName }) {
   }, []);
 
   const handleClose = () => {
+    setDose({
+      dose: "",
+      quandity: "",
+    });
+    setError(false);
+    setBal("");
+    setTime("");
     setOpen(false);
   };
   const timeHandler = (time) => {
@@ -208,11 +230,15 @@ function MaxWidthDialog({ open, setOpen, currentData, userName }) {
   };
 
   const bookHandler = () => {
-    if (!dose || !time) return infoToast("choose Time and Dose");
+    if (Error) return;
+    if (dose.dose === "" || dose.quandity == "" || !time)
+      return infoToast("choose Time and Dose");
     setLoading(true);
     Axios.post("/medi/book-slot", {
       time,
       shopId: currentData.shopId,
+      _id: currentData._id,
+      bal,
       name: userName,
       cart: {
         name: currentData.mediName,
@@ -284,7 +310,10 @@ function MaxWidthDialog({ open, setOpen, currentData, userName }) {
             <FormControl sx={{ mt: 2, minWidth: 120 }}>
               <InputLabel htmlFor="max-width">Dose</InputLabel>
               <Select
-                onChange={(e) => setDose(e.target.value)}
+                onChange={(e) => {
+                  setError(false);
+                  setDose({ ...dose, dose: e.target.value });
+                }}
                 label="Dose"
                 inputProps={{
                   name: "dose",
@@ -292,9 +321,58 @@ function MaxWidthDialog({ open, setOpen, currentData, userName }) {
                 }}
               >
                 {currentData?.dose?.map((i) => (
-                  <MenuItem value={i}>{i}</MenuItem>
+                  <MenuItem value={i.dose}>{i.dose}</MenuItem>
                 ))}
               </Select>
+              {dose?.dose !== "" && (
+                <Box
+                  component="form"
+                  sx={{
+                    "& > :not(style)": { m: 1, width: "50ch" },
+                  }}
+                  noValidate
+                  autoComplete="off"
+                >
+                  <TextField
+                    label={`Quandity max-${
+                      currentData?.dose?.filter((i) => i.dose === dose?.dose)[0]
+                        .stock
+                    }`}
+                    variant="outlined"
+                    type="Number"
+                    onChange={(e) => {
+                      if (
+                        e.target.value >
+                          currentData?.dose?.filter(
+                            (i) => i.dose === dose?.dose
+                          )[0].stock ||
+                        currentData?.dose?.filter(
+                          (i) => i.dose === dose?.dose
+                        )[0].stock == 0
+                      ) {
+                        setError(true);
+                      } else {
+                        setError(false);
+                        setBal(
+                          currentData?.dose?.filter(
+                            (i) => i.dose === dose?.dose
+                          )[0].stock - e.target.value
+                        );
+                        setDose({ ...dose, quandity: e.target.value });
+                      }
+                    }}
+                  />
+                  {dose.quandity !== "" && (
+                    <h5>
+                      Total price:-
+                      {currentData?.dose?.filter(
+                        (i) => i.dose === dose?.dose
+                      )[0].price * dose.quandity}{" "}
+                      ₹{" "}
+                    </h5>
+                  )}
+                </Box>
+              )}
             </FormControl>
           </Box>
         </DialogContent>
@@ -306,7 +384,9 @@ function MaxWidthDialog({ open, setOpen, currentData, userName }) {
           ) : (
             <>
               <Button onClick={handleClose}>Close</Button>
-              <Button onClick={bookHandler}>BOOK</Button>
+              <Button onClick={bookHandler}>
+                {Error ? "out of stock" : "Book"}
+              </Button>
             </>
           )}
         </DialogActions>

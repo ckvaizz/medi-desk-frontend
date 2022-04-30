@@ -19,17 +19,32 @@
     display: none;
 }
 .admin-home-main>span{
-    background-color: #d85669;
+    
     padding: 9px;
     position: fixed;
     top: 16%;
     left: 70px;
-    border-radius: 20px;
+   display: flex;
+   justify-content: space-around;
     color: white;
     font-weight: 700;
     letter-spacing: 1px;
     text-transform: uppercase;
     cursor: pointer;
+    width: 200px;
+}
+.admin-home-main>span>button{
+border: none;
+padding: 7px;
+border-radius: 10px;
+}
+.admin-home-main>span>button:nth-child(1){
+    background-color: rgb(29, 160, 221);
+    
+}
+.admin-home-main>span>button:nth-child(2){
+    background-color: rgb(236, 60, 47);
+    color: white;
 }
 .approve-btn,.user-delete-btn{
     padding: 4px;

@@ -12,6 +12,11 @@
   overflow: hidden;
   
 }
+.text-content>.onlyContent{
+  font-size: .9rem;
+  letter-spacing: 1.5px;
+  color: white;
+}
 .login > div {
   height: 100%;
   width: 50%;

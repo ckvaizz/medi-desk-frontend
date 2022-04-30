@@ -11,8 +11,8 @@ import Axios from "../../../constants/Axios";
 import { errorToast, infoToast, successToast } from "../../../constants/toast";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import LinearProgress from "@mui/material/LinearProgress";
-import Box from "@mui/material/Box";
 import EditIcon from "@mui/icons-material/Edit";
+import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Swal from "sweetalert2";
 import Button from "@mui/material/Button";
@@ -37,8 +37,6 @@ export default function SkHome() {
     name: "",
     companyName: "",
     dose: [],
-    stock: "",
-    price: "",
     _id: "",
   });
 
@@ -94,9 +92,9 @@ export default function SkHome() {
               <TableRow>
                 <TableCell>Medicine Name</TableCell>
                 <TableCell align="right">Company name</TableCell>
-                <TableCell align="right">Stock</TableCell>
+                
                 <TableCell align="right">Added Date</TableCell>
-                <TableCell align="right">Dose</TableCell>
+                <TableCell align="right">Dose-Stock-Price</TableCell>
                 <TableCell align="right">Options</TableCell>
               </TableRow>
             </TableHead>
@@ -112,12 +110,12 @@ export default function SkHome() {
                       {medi.name}
                     </TableCell>
                     <TableCell align="right">{medi.companyName}</TableCell>
-                    <TableCell align="right">{medi.stock}</TableCell>
+                  
                     <TableCell align="right">
                       {new Date(medi.regDate).toLocaleDateString()}
                     </TableCell>
                     <TableCell align="right">
-                      {medi.dose.map((i) => `${i},`)}
+                      {medi.dose.map((i) =>`${i.dose}-${i.stock}-${i.price} ,` )}
                     </TableCell>
                     <TableCell align="right">
                       <button
@@ -128,8 +126,7 @@ export default function SkHome() {
                             name: medi.name,
                             companyName: medi.companyName,
                             dose: medi.dose,
-                            price: medi.price,
-                            stock: medi.stock,
+                           
                             _id: medi._id,
                           });
                         }}
@@ -167,7 +164,7 @@ export default function SkHome() {
         </TableContainer>
       </div>
       <div className="addMedi-btn" onClick={() => setOpenAdd(true)}>
-        <AddCircleIcon />
+        Add medicine
       </div>
       <EditScreenDialog currentData={currentData} />
       <AddScreenDialog setOpenAdd={setOpenAdd} openAdd={openAdd} />
@@ -186,22 +183,20 @@ function EditScreenDialog({ currentData }) {
   const [edited, setEdited] = React.useState({});
   const [open, setOpen] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
-
+  const [dose,setDose]=React.useState([])
   React.useEffect(() => {
     setOpen(currentData.name !== "" ? true : false);
     setEdited({
       name: currentData?.name,
       companyName: currentData?.companyName,
-      dose: currentData?.dose,
-      stock: currentData?.stock,
-      price: currentData?.price,
       _id: currentData?._id,
     });
+    setDose(currentData?.dose)
   }, [currentData]);
 
   const saveHandler = () => {
     setLoading(true);
-    Axios.post("/medi/edit", edited)
+    Axios.post("/medi/edit", {name:edited?.name,companyName:edited?.companyName,dose:dose,_id:edited?._id})
       .then((res) => {
         handleClose();
         setLoading(false);
@@ -288,80 +283,103 @@ function EditScreenDialog({ currentData }) {
             </Box>
           </div>
         </ListItem>
-        <ListItem>
-          <div
-            style={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "space-evenly",
-            }}
-          >
-            <Box
-              component="form"
-              sx={{
-                "& > :not(style)": { m: 1, width: "50ch" },
+       
+       {
+         dose?.map((ds,key)=>{
+           return(
+            <ListItem>
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "space-evenly",
               }}
-              noValidate
-              autoComplete="off"
             >
-              <TextField
-                id="outlined-basic"
-                label="Stock"
-                defaultValue={edited.stock}
-                variant="outlined"
-                onChange={(e) =>
-                  setEdited({ ...edited, stock: e.target.value })
-                }
-              />
-            </Box>
-            <Box
-              component="form"
-              sx={{
-                "& > :not(style)": { m: 1, width: "50ch" },
-              }}
-              noValidate
-              autoComplete="off"
-            >
-              <TextField
-                id="outlined-basic"
-                label="Price"
-                defaultValue={edited.price}
-                variant="outlined"
-                onChange={(e) =>
-                  setEdited({ ...edited, price: e.target.value })
-                }
-              />
-            </Box>
-          </div>
-        </ListItem>
-        <ListItem>
-          <div
-            style={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "space-evenly",
-            }}
-          >
-            <Box
-              component="form"
-              sx={{
-                "& > :not(style)": { m: 1, width: "50ch" },
-              }}
-              noValidate
-              autoComplete="off"
-            >
-              <TextField
-                id="outlined-basic"
-                label="Dose"
-                defaultValue={edited?.dose?.map((i) => `${i}`)}
-                variant="outlined"
-                onChange={(e) =>
-                  setEdited({ ...edited, dose: e.target.value.split(",") })
-                }
-              />
-            </Box>
-          </div>
-        </ListItem>
+              <Box
+                component="form"
+                sx={{
+                  "& > :not(style)": { m: 1, width: "50ch" },
+                }}
+                noValidate
+                autoComplete="off"
+              >
+                <TextField
+                  label={`Dose`}
+                  variant="outlined"
+                  defaultValue={ds.dose}
+                  onChange={(e) =>{
+                  let newArr=[]
+                  dose.map(i=>{
+                    if(i.dose === ds.dose){
+                      i.dose = e.target.value
+                    }
+                    newArr.push(i)
+                   
+                  })
+                  setDose(newArr)
+                  }}
+                />
+              </Box>
+              <Box
+                component="form"
+                sx={{
+                  "& > :not(style)": { m: 1, width: "50ch" },
+                }}
+                noValidate
+                autoComplete="off"
+              >
+                <TextField
+                  id="sassi"
+                  label={`Stock of dose- ${ds.dose}`}
+                  variant="outlined"
+                  defaultValue={ds.stock}
+                  onChange={(e) => {
+                    let newArr=[]
+                  dose.map(i=>{
+                    if(i.dose === ds.dose){
+                      i.stock = e.target.value
+                    }
+                    newArr.push(i)
+                    
+                  })
+                  setDose(newArr)
+                  }}
+                />
+              </Box>
+
+              <Box
+                component="form"
+                sx={{
+                  "& > :not(style)": { m: 1, width: "50ch" },
+                }}
+                noValidate
+                autoComplete="off"
+              >
+                <TextField
+                  id="sassi"
+                  label={`Price of dose- ${ds.doses}`}
+                  variant="outlined"
+                  defaultValue={ds.price}
+                  onChange={(e) => {
+                    let newArr=[]
+                    dose.map(i=>{
+                      if(i.dose === ds.dose){
+                        i.price = e.target.value
+                      }
+                      newArr.push(i)
+                      
+                    })
+                    setDose(newArr)
+                  }}
+                />
+              </Box>
+            </div>
+          </ListItem>
+           )
+         })
+       }
+       
+       
         <Divider />
         <ListItem>
           <div
@@ -394,16 +412,19 @@ function AddScreenDialog({ setOpenAdd, openAdd }) {
   const [edited, setEdited] = React.useState({
     name: "",
     companyName: "",
-    dose: "",
-    stock: "",
-    price: "",
   });
-
+  const [doseObj, setDoseObj] = React.useState([]);
+  const [doses, setDoses] = React.useState();
   const [loading, setLoading] = React.useState(false);
+  const [temp, setTemp] = React.useState("");
+  const [temp2, setTemp2] = React.useState("");
+  const [err,setErr]=React.useState(false)
 
   const addHandler = () => {
+    if(!edited.name || !edited.companyName || doses)return setErr(true)
+
     setLoading(true);
-    Axios.post("/medi/add", edited)
+    Axios.post("/medi/add", {name:edited?.name,companyName:edited?.companyName,dose:doseObj})
       .then((res) => {
         handleClose();
         setLoading(false);
@@ -466,7 +487,9 @@ function AddScreenDialog({ setOpenAdd, openAdd }) {
                 id="outlined-basic"
                 label="Name"
                 variant="outlined"
-                onChange={(e) => setEdited({ ...edited, name: e.target.value })}
+                onChange={(e) =>{
+                  setErr(false)
+                  setEdited({ ...edited, name: e.target.value })}}
               />
             </Box>
             <Box
@@ -481,57 +504,16 @@ function AddScreenDialog({ setOpenAdd, openAdd }) {
                 id="outlined-basic"
                 label="Company name"
                 variant="outlined"
-                onChange={(e) =>
+                onChange={(e) =>{
+                  setErr(false)
                   setEdited({ ...edited, companyName: e.target.value })
                 }
-              />
-            </Box>
-          </div>
-        </ListItem>
-        <ListItem>
-          <div
-            style={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "space-evenly",
-            }}
-          >
-            <Box
-              component="form"
-              sx={{
-                "& > :not(style)": { m: 1, width: "50ch" },
-              }}
-              noValidate
-              autoComplete="off"
-            >
-              <TextField
-                id="outlined-basic"
-                label="Stock"
-                variant="outlined"
-                onChange={(e) =>
-                  setEdited({ ...edited, stock: e.target.value })
-                }
-              />
-            </Box>
-            <Box
-              component="form"
-              sx={{
-                "& > :not(style)": { m: 1, width: "50ch" },
-              }}
-              noValidate
-              autoComplete="off"
-            >
-              <TextField
-                id="outlined-basic"
-                label="Price"
-                variant="outlined"
-                onChange={(e) =>
-                  setEdited({ ...edited, price: e.target.value })
                 }
               />
             </Box>
           </div>
         </ListItem>
+
         <ListItem>
           <div
             style={{
@@ -552,13 +534,96 @@ function AddScreenDialog({ setOpenAdd, openAdd }) {
                 id="outlined-basic"
                 label="Dose"
                 variant="outlined"
-                onChange={(e) =>
-                  setEdited({ ...edited, dose: e.target.value.split(",") })
-                }
+                value={doses}
+                onChange={(e) => {
+                  setErr(false)
+                  setDoses(e.target.value);
+                }}
               />
             </Box>
           </div>
         </ListItem>
+        {doses && (
+          <ListItem>
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "space-evenly",
+              }}
+            >
+              <Box
+                component="form"
+                sx={{
+                  "& > :not(style)": { m: 1, width: "50ch" },
+                }}
+                noValidate
+                autoComplete="off"
+              >
+                <TextField
+                  label={`stock of dose- ${doses}`}
+                  variant="outlined"
+                  onChange={(e) =>{
+                    setErr(false)
+                    setTemp(e.target.value)}}
+                />
+              </Box>
+              <Box
+                component="form"
+                sx={{
+                  "& > :not(style)": { m: 1, width: "50ch" },
+                }}
+                noValidate
+                autoComplete="off"
+              >
+                <TextField
+                  id="sassi"
+                  label={`Price of dose- ${doses}`}
+                  variant="outlined"
+                  onChange={(e) => {
+                    setErr(false)
+                    setTemp2(e.target.value);
+                  }}
+                />
+              </Box>
+
+              <button
+              className="adddose-Btn"
+                onClick={() => {
+                  setErr(false)
+                  if (temp && temp2) {
+                    setDoseObj([
+                      ...doseObj,
+                      { dose: doses, stock: temp, price: temp2 },
+                    ]);
+                    setDoses('')
+                    setTemp('')
+                    setTemp2('')
+                  } else errorToast("missing feild");
+                }}
+              >
+                Add dose
+              </button>
+            </div>
+          </ListItem>
+        )}
+        {
+          doseObj.map(ds=>{
+            return(
+              <ListItem>
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "space-evenly",
+              }}
+            >
+            # {ds.dose} - {ds.stock} -{ds.price}. ADDED
+            </div>
+          </ListItem>
+            )
+          })
+        }
         <Divider />
         <ListItem>
           <div
@@ -568,15 +633,16 @@ function AddScreenDialog({ setOpenAdd, openAdd }) {
               justifyContent: "space-evenly",
             }}
           >
-            <button className="save-btn" onClick={addHandler}>
-              {loading ? (
-                <Box sx={{ width: "100%" }}>
-                  <LinearProgress />
-                </Box>
-              ) : (
-                "Add"
-              )}
-            </button>
+            
+              <button className="save-btn" onClick={addHandler}>
+                {loading ? (
+                  <Box sx={{ width: "100%" }}>
+                    <LinearProgress />
+                  </Box>
+                ) : err?"Missing field":"Add"
+                }
+              </button>
+            
           </div>
         </ListItem>
       </Dialog>

@@ -221,6 +221,7 @@ export default function Login({ setLoginOrSignup ,setLoginUser }) {
           <p>GET START </p>
           <p>with</p>
           <p>MEDI-DESK</p>
+          <p className="onlyContent">"Thamarassery Area"</p>
           <button onClick={() => setLoginOrSignup("signup")}>Sign up</button>
         </div>
       </div>

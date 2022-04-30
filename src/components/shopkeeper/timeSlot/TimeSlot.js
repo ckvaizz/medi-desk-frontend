@@ -11,14 +11,17 @@ import LinearProgress from "@mui/material/LinearProgress";
 import Box from "@mui/material/Box";
 import Axios from "../../../constants/Axios";
 import { errorToast } from "../../../constants/toast";
-
+import InputLabel from "@mui/material/InputLabel";
+import Select from "@mui/material/Select";
 import Swal from "sweetalert2";
+import MenuItem from "@mui/material/MenuItem";
 
 
 export default function TimeSlot(){
 const [time,setTime]=React.useState((new Date().getHours() >12)?new Date().getHours()-12:new Date().getHours())
 const [data,setData]=React.useState([])
 const [loading,setLoading]=React.useState(false)
+const [arr, _] = React.useState([9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8])
     React.useEffect(()=>{
         setLoading(true)
         Axios.get(`/medi/view-slot/${time}`).then(res=>{
@@ -36,7 +39,23 @@ const [loading,setLoading]=React.useState(false)
     return(
         <div className="sk-timeslot-main">
         <span>
-          <input type="number" onChange={(e)=>setTime(e.target.value)} placeholder="enter time" />
+        <InputLabel htmlFor="max-width">Select Time</InputLabel>
+              <Select
+                onChange={(e) => {
+                  setTime(e.target.value)
+                }}
+                label="Time"
+                inputProps={{
+                  name: "Time",
+                  id: "max-width",
+                }}
+              >
+                {
+                  arr.map(i=> <MenuItem value={i}>{i}</MenuItem>)
+                }
+                  
+                
+              </Select>
         </span>
         <div className="sk-timeslot">
           <TableContainer component={Paper}>
@@ -46,7 +65,7 @@ const [loading,setLoading]=React.useState(false)
                   <TableCell>Name</TableCell>
                   <TableCell align="right">Medicine</TableCell>
                   <TableCell align="right">Company name</TableCell>
-                  <TableCell align="right">Dose</TableCell>
+                  <TableCell align="right">Dose|Quandity</TableCell>
                   
                 </TableRow>
               </TableHead>
@@ -63,7 +82,13 @@ const [loading,setLoading]=React.useState(false)
                       </TableCell>
                       <TableCell align="right">{odr.cart.map(i=> i.name+" |")}</TableCell>
                       <TableCell align="right">{odr.cart.map(i=> i.companyName+" |")}</TableCell>
-                      <TableCell align="right">{odr.cart.map(i=> i.dose+" |")}</TableCell>
+                      <TableCell align="right">{odr.cart.map(i=> {
+                        return(
+                          <>
+                          {i.dose.dose},{i.dose.quandity} |
+                          </>
+                        )
+                      })}</TableCell>
                      
                      
                       

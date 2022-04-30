@@ -68,6 +68,11 @@
       opacity   : 1;
   }
   }
+  .text-content>.onlyContent{
+    font-size: .9rem;
+    letter-spacing: 1.5px;
+    color: white;
+  }
 
   .input-field-signup>h1{
     font: caption;
@@ -88,6 +93,7 @@
   .input-field-signup>input{
     height: 40px;
     padding-left: 18px;
+    margin: 1px;
     border-radius: 27px;
     border: none;
     background: #e5d6d6;
